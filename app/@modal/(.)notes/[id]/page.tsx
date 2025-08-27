@@ -1,16 +1,17 @@
+import { fetchNoteById } from '@/lib/api/serverApi';
 import {
-  QueryClient,
   HydrationBoundary,
+  QueryClient,
   dehydrate,
 } from '@tanstack/react-query';
-import { fetchNoteById } from '@/lib/api/serverApi';
+
 import NotePreview from './NotePreview.client';
-type NoteDetailsProps = {
-    params: Promise<{ id: string }>;
+
+type NoteDetailsModalProps = {
+  params: Promise<{ id: string }>;
 };
 
-
-export default async function NoteDetails({ params }: NoteDetailsProps)  {
+export default async function NoteDetails({ params }: NoteDetailsModalProps) {
   const { id } = await params;
   const queryClient = new QueryClient();
 

@@ -1,29 +1,33 @@
 'use client';
+import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import { fetchNoteById } from '@/lib/api/clientApi';
+
 import Modal from '@/components/Modal/Modal';
 import css from './NotePreview.module.css';
-import { useQuery } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
-import Loading from '@/app/loading';
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
-export default function NotePreview() {
-  const { id } = useParams<{ id: string }>();
+
+const NotePreview = () => {
   const router = useRouter();
   const close = () => router.back();
+
+  const { id } = useParams<{ id: string }>();
+
   const {
     data: note,
-    isPending,
+    isFetching,
     error,
   } = useQuery({
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
-    enabled: !!id,
   });
-  if (isPending) return <Loading />;
-  if (error || !note) return <ErrorMessage />;
+
+  if (isFetching) return <p>Loading, please wait...</p>;
+  if (error || !note) return <p>Something went wrong.</p>;
+
   return (
-    <Modal close={close}>
+    <Modal onClose={close}>
       <div className={css.container}>
         <div className={css.item}>
           <div className={css.header}>
@@ -38,4 +42,6 @@ export default function NotePreview() {
       </div>
     </Modal>
   );
-}
+};
+
+export default NotePreview;

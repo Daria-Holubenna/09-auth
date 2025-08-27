@@ -29,7 +29,20 @@ export const generateMetadata = async ({
           url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
           width: 1200,
           height: 630,
-          alt: 'NoteHub Logo',
+          alt: 'notehub image',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Notes: ${tag ? `${tag}` : 'all'}`,
+      description: `Note: ${tag || 'all'} — created in Notehub.`,
+      images: [
+        {
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'notehub image',
         },
       ],
     },

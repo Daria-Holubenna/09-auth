@@ -1,22 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import css from './TagsMenu.module.css';
+import Link from 'next/link';
 
-const tags = [
-  'All',
-  'Todo',
-  'Work',
-  'Shopping',
-  'Personal',
-  'Meeting',
-];
+const tags = ['All', 'Work', 'Personal', 'Meeting', 'Shopping', 'Todo'];
 
-export default function TagsMenu() {
+const TagsMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-   return (
+  return (
     <div className={css.menuContainer}>
       <button onClick={toggle} className={css.menuButton}>
         Notes ▾
@@ -27,7 +20,7 @@ export default function TagsMenu() {
             <li key={tag} className={css.menuItem}>
               <Link
                 onClick={toggle}
-                href={`/notes/filter/${tag}`}
+                href={`/notes/filter/${tag === 'All' ? 'all' : tag}`}
                 className={css.menuLink}
               >
                 {tag}
@@ -40,3 +33,4 @@ export default function TagsMenu() {
   );
 };
 
+export default TagsMenu;

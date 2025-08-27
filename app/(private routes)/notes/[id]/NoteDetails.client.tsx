@@ -1,38 +1,31 @@
 'use client';
-import css from './NoteDetails.module.css';
 import { fetchNoteById } from '@/lib/api/clientApi';
+import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
-import Loading from '@/app/loading';
+import css from './NoteDetails.module.css';
+
 type Params = {
   id: string;
 };
-export default function NoteDetailsClient() {
-  const params: Params = useParams();
-  const router = useRouter();
-  const { id } = params;
+
+export default function NotesDetailsClient() {
+  const { id }: Params = useParams();
+
   const {
     data: note,
-    isPending,
+    isFetching,
     error,
   } = useQuery({
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
-    enabled: !!id,
   });
-  const handleGoBack = () => {
-    const isSure = window.confirm('Are you sure?');
-    if (isSure) {
-      router.back();
-    }
-  };
+
   return (
     <>
-      <button onClick={handleGoBack}>Back</button>
-      {isPending && <Loading />}
-      {error && !isPending && <p>Something went wrong.</p>}
-      {note && !isPending && !error && (
+      {isFetching && <p>Loading, please wait...</p>}
+      {(error || !note) && <p>Something went wrong.</p>}
+      {note && (
         <div className={css.container}>
           <div className={css.item}>
             <div className={css.header}>

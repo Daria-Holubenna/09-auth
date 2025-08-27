@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   height: 100%;
-
 }
 
 .sidebar {
@@ -18,5 +18,5 @@
 
 .notesWrapper {
   width: 100%;
-
+  flex: 1;
 }

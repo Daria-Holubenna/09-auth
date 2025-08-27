@@ -1,37 +1,34 @@
-import { createPortal } from "react-dom";
-import css from "./Modal.module.css";
-import { useEffect, type ReactNode } from "react";
+import { createPortal } from 'react-dom';
+import css from './Modal.module.css';
+import { useEffect, type ReactNode } from 'react';
 
-interface ModalProps {
+interface NoteModalProps {
+  onClose: () => void;
   children: ReactNode;
-  close: () => void;
 }
 
-export default function Modal({ children, close }: ModalProps) {
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        close();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [close]);
-
-  useEffect(() => {
-    document.body.classList.add("no-scroll");
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, []);
-
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      close();
+export default function NoteModal({ onClose, children }: NoteModalProps) {
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onClose();
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
 
   return createPortal(
     <div
@@ -40,12 +37,7 @@ export default function Modal({ children, close }: ModalProps) {
       role="dialog"
       aria-modal="true"
     >
-      <div className={css.modal}>
-        <button className={css.close} onClick={close}>
-        &times;
-        </button>
-        {children}
-      </div>
+      <div className={css.modal}>{children}</div>
     </div>,
     document.body,
   );

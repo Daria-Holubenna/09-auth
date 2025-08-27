@@ -1,30 +1,33 @@
-import css from "./NoteList.module.css";
-import type { Note } from "@/types/note";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteNote } from "@/lib/api/clientApi";
-import toast from "react-hot-toast";
-import Link from "next/link";
+import css from './NoteList.module.css';
+import type { Note } from '@/types/note';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteNote } from '@/lib/api/clientApi';
+
+import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 interface NoteListProps {
   notes: Note[];
 }
+
 export default function NoteList({ notes }: NoteListProps) {
-  
   const queryClient = useQueryClient();
 
-  const deleteMutation = useMutation({
-    mutationFn: (id: string) => deleteNote(id),
+  const delMutation = useMutation({
+    mutationFn: deleteNote,
+
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
-      toast.success("Note successfully deleted!");
+      toast.success('Note deleted successfully!');
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
     },
-    onError: (error) => {
-      console.error("Ошибка удаленияВашуМашу:", error);
-      toast.error(
-        "An error occurred while deleting a note. The note was not deleted!"
-      );
+    onError: () => {
+      toast.error('Something went wrong...Try again, please');
     },
   });
+
+  const handleDel = (id: string) => {
+    delMutation.mutate(id);
+  };
 
   return (
     <ul className={css.list}>
@@ -35,12 +38,9 @@ export default function NoteList({ notes }: NoteListProps) {
           <div className={css.footer}>
             <span className={css.tag}>{note.tag}</span>
             <Link href={`/notes/${note.id}`} className={css.link}>
-            View Details
+              View Details
             </Link>
-            <button className={css.button}
-              onClick={() => deleteMutation.mutate(note.id)}
-              disabled={deleteMutation.isPending}
-            >
+            <button className={css.button} onClick={() => handleDel(note.id)}>
               Delete
             </button>
           </div>
