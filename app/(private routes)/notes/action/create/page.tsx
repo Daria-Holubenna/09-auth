@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Create note',
     description: 'Create a new note with title, content, and tags.',
-    url: 'https://08-zustand-zeta-one.vercel.app/notes/action/create',
+    url: 'https://08-zustand-pied-one.vercel.app/notes/action/create',
     images: [
       {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
@@ -18,19 +18,6 @@ export const metadata: Metadata = {
       },
     ],
     type: 'article',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'NoteHub',
-    description: 'Take and organize notes easily with tags and instant search.',
-    images: [
-      {
-        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'notehub image',
-      },
-    ],
   },
 };
 

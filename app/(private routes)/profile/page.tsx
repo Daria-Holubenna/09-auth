@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: 'User Profile',
     description:
       'View and manage your personal information, profile photo, and account settings in NoteHub.',
-    url: 'https://09-auth-nine-lilac.vercel.app/profile',
+    url: 'https://09-auth-pied-pi.vercel.app/profile',
     images: [
       {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
@@ -22,19 +22,6 @@ export const metadata: Metadata = {
       },
     ],
     type: 'article',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'NoteHub',
-    description: 'Take and organize notes easily with tags and instant search.',
-    images: [
-      {
-        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'notehub image',
-      },
-    ],
   },
 };
 
