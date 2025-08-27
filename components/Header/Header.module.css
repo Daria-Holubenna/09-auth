@@ -7,14 +7,6 @@
   color: white;
 }
 
-.header span {
-  color: #333;
-  background-color: #f4c430;
-  border-radius: 4px;
-  padding: 0px 2px;
-  margin-left: 2px;
-}
-
 .headerLink {
   text-decoration: none;
   color: white;
