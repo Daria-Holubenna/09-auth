@@ -65,14 +65,6 @@ export async function middleware(request: NextRequest) {
   }
   return NextResponse.next();
 }
-
 export const config = {
   matcher: ['/profile/:path*', '/notes/:path*', '/sign-in', '/sign-up'],
 };
-//   if (!accessToken) {
-//     if (refreshToken) {
-//       const data = await serverSession();
-//       const setCookie = data.headers['set-cookie'];
-//     }
-//   }
-// }
